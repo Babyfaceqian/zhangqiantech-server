@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- '8'
+install:
+- npm install
+script:
+addons:
+  ssh_known_hosts:
+  - 39.108.158.235 #受信主机，你的Linux服务器ip
+before_install:
+after_success:
+- chmod 600 ~/.ssh/id_rsa   #还是Linux文件权限问题
+#- ssh travis@39.108.158.235 -o StrictHostKeyChecking=no "/home/travis/web/run.sh" #使用ssh连接服务器
