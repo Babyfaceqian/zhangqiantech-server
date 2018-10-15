@@ -4,7 +4,6 @@
   "description": "利用node+koa+mongoose搭建的后台服务，提供restful接口api",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "koa",
