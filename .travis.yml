@@ -11,4 +11,4 @@ before_install:
   -in id_rsa.enc -out ~/.ssh/id_rsa -d
 after_success:
 - chmod 600 ~/.ssh/id_rsa
-- ssh travis@39.108.158.235 -o StrictHostKeyChecking=no "npm i && node /home/travis/web/zhangqiantech-server/app"
+- ssh travis@39.108.158.235 -o StrictHostKeyChecking=no "npm i"
