@@ -69,3 +69,11 @@ exports.deleteUser = async ({phoneNumber}) => {
 	console.log('flag=====await=====>'+flag)
 	return flag
 }
+
+/**
+ * 登录
+ */
+exports.findByUsernameAndPwd = async (user) => {
+	let result = User.findOne(user).exec()
+	return result
+}

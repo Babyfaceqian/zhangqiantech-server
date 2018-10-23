@@ -50,14 +50,42 @@ const session = require('koa-session')
 const bodyParser = require('koa-bodyparser')
 const cors = require('koa-cors');
 const app = new Koa()
+const App = require('./app/controllers/app');
 
+const store = {
+  async get(key, maxAge, { rolling }) {
+    console.log('get session')
+    return await App.getSession(key)
+  },
+  async set(key, sess, maxAge, { rolling, changed }) {
+    console.log('set session', key, sess)
+    await App.setSession(key, JSON.stringify(sess))
+  },
+
+  async destroy(key) {
+    App.deleteSession(key);
+  }
+}
+
+const sessionConfig = {
+  key: 'koa:sess',
+  maxAge: 24 * 60 * 60 * 1000,
+  autoCommit: true,
+  overwrite: true,
+  httpOnly: true,
+  signed: true,
+  rolling: false,
+  renew: false,
+  store
+}
 app.keys = ['zhangivon']
+
 app.use(cors({
   origin: function (ctx) {
     if (ctx.url === '/test') {
       return "*"; // 允许来自所有域名请求
     }
-    return "*";
+    return "http://localhost:8080";
   },
   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
   maxAge: 5,
@@ -66,7 +94,8 @@ app.use(cors({
   allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
 }))
 app.use(logger())
-app.use(session(app))
+app.use(session(sessionConfig, app))
+
 app.use(bodyParser())
 
 
