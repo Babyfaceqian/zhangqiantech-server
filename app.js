@@ -85,7 +85,7 @@ app.use(cors({
     if (ctx.url === '/test') {
       return "*"; // 允许来自所有域名请求
     }
-    return "*";
+    return "http://www.zhangqiantech.com";
   },
   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
   maxAge: 5,
